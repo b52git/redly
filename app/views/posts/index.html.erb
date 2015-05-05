@@ -1,12 +1,14 @@
-<h1>Posts</h1>
-
 <ul>
 <% @posts.each do |post| %>
-
-<% if post.link %>
-  <li><%= post.title %>           <%= link_to post.link, post.link %></li>
-  <% else %>
-  <li><%= post.title %></li>
-<% end %>
-<% end %>
+  <li>
+    <% if post.link.present? %>
+    <div class="title"><a href="<%= post.link %>"><%= post.title %></a></div>
+    <% else %>
+    <%= post.title %>
+      <% end %>
+      <div class="tagline" title=" <%= post.created_at %>">"
+        <%= time_ago_in_words post.created_at %> ago
+        </div>
+    <% end %>
+  </li>
 </ul>
