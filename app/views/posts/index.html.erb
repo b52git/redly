@@ -1,0 +1,12 @@
+<h1>Posts</h1>
+
+<ul>
+<% @posts.each do |post| %>
+
+<% if post.link %>
+  <li><%= post.title %>           <%= link_to post.link, post.link %></li>
+  <% else %>
+  <li><%= post.title %></li>
+<% end %>
+<% end %>
+</ul>
