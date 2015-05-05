@@ -6,8 +6,8 @@
     <% else %>
     <%= post.title %>
       <% end %>
-      <div class="tagline" title=" <%= post.created_at %>">"
-        <%= time_ago_in_words post.created_at %> ago
+      <div class="tagline" title="<%= post.created_at %>">
+        ... <%= time_ago_in_words post.created_at %> ago
         </div>
     <% end %>
   </li>

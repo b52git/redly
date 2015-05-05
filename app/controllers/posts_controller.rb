@@ -4,12 +4,18 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def new
+    @post = Post.new
+  end
+
   def create
-    @posts = Post.new
+    post = Post.new params.require(:post).permit(:title, :link, :body)
+    post.save
+    redirect_to posts_path
   end
 
   def show
-    @posts = Post.params[:id]
+    @post = Post.params[:id]
   end
 
   def edit
@@ -17,7 +23,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    
+
   end
 
 end
