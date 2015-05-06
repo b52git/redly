@@ -16,4 +16,9 @@ module ApplicationHelper
     return post_path(post) if post.text?
   end
 
+  def sidebar(sidebar_content)
+    content_for(:sidebar) { sidebar_content }
+  end
+
+
 end

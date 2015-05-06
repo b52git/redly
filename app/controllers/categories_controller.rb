@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :find_category, only: [:show, :edit, :update, :destroy]
 
   def index
   end
@@ -34,6 +35,10 @@ private
 
   def category_params
     params.require(:category).permit(:name, :title, :description, :sidebar, :submission_text)
+  end
+
+  def find_category
+    @category = Category.find params[:id]
   end
 
 end
