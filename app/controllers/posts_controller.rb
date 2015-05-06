@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-
   def index
     @posts = Post.all
   end
@@ -9,24 +8,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new params.require(:post).permit(:title, :link, :body)
-    if post.save
-      redirect_to posts_path
+    @post = Post.new params.require(:post).permit(:title, :link, :body)
+    if @post.save
+      redirect_to posts_path, flash: { notice: 'Thank you for submitting your post.' }
     else
-      redirecto_to new_post_path
+      flash.now[:error] = @post.errors.full_messages
+      render :new
     end
   end
-
-  def show
-    @post = Post.params[:id]
-  end
-
-  def edit
-
-  end
-
-  def destroy
-
-  end
-
 end
