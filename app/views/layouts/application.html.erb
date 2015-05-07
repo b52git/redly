@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
 <div class="container wrap">
   <div class="row">
     <div class="col-xs-12">
@@ -24,12 +25,13 @@
         </div>
         <span class="separator">|</span>
         <ul class="category-links">
-          <% Category.all.each_with_index do |c, i| %>
-          <li>
-            <% if i > 0 %>
-            <span class="separator">-</span>
-            <% end %>
-            <%= link_to c.name, category_path(c) %></li>
+          <% categories.each_with_index do |c, i| %>
+            <li>
+              <% if i > 0 %>
+                <span class="separator">-</span>
+              <% end %>
+              <%= link_to c.name, category_path(c) %>
+            </li>
           <% end %>
         </ul>
       </nav>
@@ -75,7 +77,7 @@
           <%= link_to 'Submit a new link', new_post_path %>
           <%= link_to 'Submit a new text post', new_post_path(post_type: :text) %>
           <%= link_to 'Create a new category', new_category_path %>
-          <%= yield :sidebar %>
+          <div><%= yield :sidebar %></div>
         </nav>
       </div>
     </div>

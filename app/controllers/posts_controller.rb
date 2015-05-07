@@ -3,10 +3,11 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @posts = Post.page(params[:page])
+    @posts = Post.includes(:comment_threads).page(params[:page])
   end
 
   def show
+    @comment = Comment.build_from(@post, current_user.id, '') if user_signed_in?
   end
 
   def edit
@@ -28,6 +29,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new post_params
+    @post.user_id = current_user.id
     if @post.save
       redirect_to posts_path, flash: { notice: 'Thank you for submitting your post.' }
     else
@@ -38,12 +40,11 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      redirect_to posts_path, flash: { notice: 'Post deleted' }
+      redirect_to posts_path, flash: { notice: 'Your post has been removed.' }
     else
       redirect_to post_path(@post), flash: { error: 'We were unable to remove that post.' }
     end
   end
-
 
   private
 
@@ -52,6 +53,11 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :link, :body, :post_type, :category_id)
+    params.require(:post).permit(
+      :title,
+      :link,
+      :body,
+      :post_type,
+      :category_id)
   end
 end

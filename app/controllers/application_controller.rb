@@ -5,9 +5,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def categories
-    @categories = Category.all if !defined? @categories #if not defined already (!defined?)
+    @categories ||= Category.all
     @categories
   end
+
   helper_method :categories
   hide_action :categories
 
@@ -17,6 +18,4 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << :username
     devise_parameter_sanitizer.for(:account_update) << :username
   end
-
-
 end
