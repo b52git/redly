@@ -19,6 +19,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    @posts = @category.posts.page(params[:page])
   end
 
   def edit
@@ -38,7 +39,7 @@ private
   end
 
   def find_category
-    @category = Category.find params[:id]
+    @category = Category.includes(:posts).find(params[:id])
   end
 
 end

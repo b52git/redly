@@ -1,6 +1,7 @@
 class Category < ActiveRecord::Base
 
   has_many :posts
+  default_scope { order(:name) }  # orders ascending by default with no paramters
   validates :name, length: { maximum: 20 }, presence: true
   validates :title, length: { maximum: 100 }
   validates :description, length: { maximum: 500 }
